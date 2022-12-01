@@ -25,7 +25,7 @@ export default class EmployeeDirectory extends React.Component {
                     <td>{ employee.email }</td>
                     <td>{ employee.salary }</td>
                     <td>
-                       <div className="row align-items-center px-2">
+                       <div className="row align-items-center px-2 flex-nowrap">
                            <a href="#" className="btn btn-primary col m-1">
                                View
                            </a>
@@ -45,7 +45,8 @@ export default class EmployeeDirectory extends React.Component {
     render() {
         return <>
             <h1 className="pb-2 pt-4">Employee Directory</h1>
-            <table className="table table-bordered">
+            <div className="table-responsive">
+                <table className="table table-bordered">
                 <thead>
                 <tr>
                     <th scope="col">#</th>
@@ -61,6 +62,7 @@ export default class EmployeeDirectory extends React.Component {
                 })}
                 </tbody>
             </table>
+            </div>
         </>
     };
 }

@@ -36,3 +36,7 @@
     transform: rotate(360deg);
   }
 }
+
+@media only screen and (max-width: 992px) {
+  #mobileNavbar {width: 100%}
+}
