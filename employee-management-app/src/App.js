@@ -14,7 +14,7 @@ function App() {
         </div>
         {/* Page Content */}
         <div className="container-fluid">
-            <div className="container py-3 text-start">
+            <div className="container py-3 text-center">
                 <EmployeeDirectory/>
             </div>
         </div>

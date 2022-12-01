@@ -37,6 +37,30 @@
   }
 }
 
+/* Center Table Horizontally */
+.table {
+  margin: auto;
+  width: 50% !important;
+}
+
+/* Table Fits Content */
+table.table-fit {
+  width: auto !important;
+  table-layout: auto !important;
+}
+table.table-fit thead th, table.table-fit tfoot th {
+  width: auto !important;
+}
+table.table-fit tbody td, table.table-fit tfoot td {
+  width: auto !important;
+}
+
+/* Fix Navbar on Smaller Screens */
 @media only screen and (max-width: 992px) {
   #mobileNavbar {width: 100%}
+}
+
+/* Fix Table Action Buttons on Medium Screens */
+@media only screen and (max-width: 992px) {
+  table .btn {width: 70px}
 }
