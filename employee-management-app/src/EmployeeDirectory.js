@@ -36,62 +36,165 @@ export default class EmployeeDirectory extends React.Component {
         return (
             <>
                 <tr className="align-middle" key={rowIndex}>
-                    <th scope="row" className="px-3">{rowIndex + 1}</th>
-                    <td className="px-3 text-nowrap">{employee.first_name} {employee.last_name}</td>
-                    <td className="px-3">{employee.email}</td>
-                    <td className="px-3">{employee.gender}</td>
-                    <td className="px-3">{employee.salary}</td>
-                    <td className="px-3">
+                    <th scope="row" className="px-4 py-3">{rowIndex + 1}</th>
+                    <td className="px-4 py-3 text-nowrap">{employee.first_name} {employee.last_name}</td>
+                    <td className="px-4 py-3">{employee.email}</td>
+                    <td className="px-4 py-3">{employee.gender}</td>
+                    <td className="px-4 py-3">{employee.salary}</td>
+                    <td className="px-4 py-3">
+                        {/* --- CRUD - Buttons --- */}
                         <div className="text-nowrap">
-                            {/* --- CRUD - READ --- */}
                             {/* CRUD - READ - Button trigger modal */}
-                            <a href="#" className="btn btn-primary m-1">
+                            <button data-bs-toggle="modal" data-bs-target={"#viewEmployeeModal" + (rowIndex + 1)}
+                                    className="btn btn-primary">
                                 View
-                            </a>
+                            </button>
 
-                            {/* CRUD - READ - Modal */}
-                            <a href="#" className="btn btn-secondary m-1">
+                            {/* CRUD - UPDATE - Button trigger modal */}
+                            <button data-bs-toggle="modal" data-bs-target={"#editEmployeeModal" + (rowIndex + 1)}
+                                    className="btn btn-secondary mx-2">
                                 Edit
-                            </a>
+                            </button>
 
                             {/* CRUD - REMOVE - Button trigger modal */}
                             <button data-bs-toggle="modal" data-bs-target={"#deleteEmployeeModal" + (rowIndex + 1)}
-                                    className="btn btn-outline-danger m-1">
+                                    className="btn btn-danger">
                                 Delete
                             </button>
-                            {/* CRUD - REMOVE - Modal */}
-                            <div className="modal fade" id={"deleteEmployeeModal" + (rowIndex + 1)} tabIndex="-1"
-                                 aria-labelledby={"deleteEmployeeModalLabel" + (rowIndex + 1)} aria-hidden="true">
-                                <div className="modal-dialog modal-dialog-centered">
-                                    <div className="modal-content">
-                                        <div className="modal-header">
-                                            <h1 className="modal-title fs-5"
-                                                id={"deleteEmployeeModalLabel" + (rowIndex + 1)}>
-                                                Delete from the Employee Directory?
-                                            </h1>
-                                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"/>
-                                        </div>
-                                        <div className="modal-body">
-                                            <p>Do you really want to delete <span
-                                                className="fw-bold">"{employee.first_name} {employee.last_name}"</span> from
-                                                the Employee Directory?</p>
-                                        </div>
-                                        <div className="modal-footer">
-                                            <button type="button" className="btn btn-secondary"
-                                                    data-bs-dismiss="modal">Cancel
-                                            </button>
-                                            <button type="button" onClick={() => {
-                                                this.deleteEmployee(employee._id)
-                                            }}
-                                                    className="btn btn-danger">Delete
-                                            </button>
-                                        </div>
+                        </div>
+
+                        {/* --- CRUD - Modals --- */}
+                        {/* CRUD - READ - Modal */}
+                        <div className="modal fade" id={"viewEmployeeModal" + (rowIndex + 1)} tabIndex="-1"
+                             aria-labelledby={"viewEmployeeModalLabel" + (rowIndex + 1)} aria-hidden="true">
+                            <div className="modal-dialog modal-dialog-centered">
+                                <div className="modal-content">
+                                    <div className="modal-header">
+                                        <h1 className="modal-title fs-5"
+                                            id={"viewEmployeeModalLabel" + (rowIndex + 1)}>
+                                            View Employee
+                                        </h1>
+                                        <button type="button" className="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"/>
+                                    </div>
+                                    { this.getEmployeeForm(employee, false) }
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* CRUD - Edit - Modal */}
+                        <div className="modal fade" id={"editEmployeeModal" + (rowIndex + 1)} tabIndex="-1"
+                             aria-labelledby={"editEmployeeModalLabel" + (rowIndex + 1)} aria-hidden="true">
+                            <div className="modal-dialog modal-dialog-centered">
+                                <div className="modal-content">
+                                    <div className="modal-header">
+                                        <h1 className="modal-title fs-5"
+                                            id={"editEmployeeModalLabel" + (rowIndex + 1)}>
+                                            Edit Employee
+                                        </h1>
+                                        <button type="button" className="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"/>
+                                    </div>
+                                    { this.getEmployeeForm(employee, true) }
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* CRUD - REMOVE - Modal */}
+                        <div className="modal fade" id={"deleteEmployeeModal" + (rowIndex + 1)} tabIndex="-1"
+                             aria-labelledby={"deleteEmployeeModalLabel" + (rowIndex + 1)} aria-hidden="true">
+                            <div className="modal-dialog modal-dialog-centered">
+                                <div className="modal-content">
+                                    <div className="modal-header">
+                                        <h1 className="modal-title fs-5"
+                                            id={"deleteEmployeeModalLabel" + (rowIndex + 1)}>
+                                            Delete Employee
+                                        </h1>
+                                        <button type="button" className="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"/>
+                                    </div>
+                                    <div className="modal-body">
+                                        <p>Do you really want to delete <span
+                                            className="fw-bold">"{employee.first_name} {employee.last_name}"</span> from
+                                            the Employee Directory?</p>
+                                    </div>
+                                    <div className="modal-footer">
+                                        <button type="button" className="btn btn-secondary"
+                                                data-bs-dismiss="modal">Cancel
+                                        </button>
+                                        <button type="button" onClick={() => {
+                                            this.deleteEmployee(employee._id)
+                                        }}
+                                                className="btn btn-danger">Delete
+                                        </button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </td>
                 </tr>
+            </>
+        );
+    }
+
+    getEmployeeForm(employee, editMode) {
+        return (
+            <>
+                <form>
+                    <div className="modal-body">
+                        {/* First Name */}
+                        <div className="mb-3">
+                            <label htmlFor="inputFirstName" className="form-label">First Name</label>
+                            <input type="text" className="form-control"
+                                   placeholder="First Name" id="inputFirstName" disabled={ !editMode }
+                                   value={ employee.first_name }/>
+                        </div>
+
+                        {/* Last Name */}
+                        <div className="mb-3">
+                            <label htmlFor="inputLastName" className="form-label">Last Name</label>
+                            <input type="text" className="form-control"
+                                   placeholder="Last Name" id="inputLastName" disabled={ !editMode }
+                                   value={ employee.last_name }/>
+                        </div>
+
+                        {/* Email */}
+                        <div className="mb-3">
+                            <label htmlFor="inputEmail" className="form-label">Email</label>
+                            <input type="email" className="form-control"
+                                   placeholder="Email" id="inputEmail" disabled={ !editMode } value={ employee.email }/>
+                        </div>
+
+                        {/* Gender */}
+                        <div className="mb-3">
+                            <label htmlFor="inputGender" className="form-label">Gender</label>
+                            <select className="form-select" aria-label="Gender"
+                                    id="inputGender" disabled={ !editMode }>
+                                <option>- Select an option -</option>
+                                <option value="1" selected={ employee.gender === "Male" }>Male</option>
+                                <option value="2" selected={ employee.gender === "Female" }>Female</option>
+                                <option value="3" selected={ employee.gender === "Other" }>Other</option>
+                            </select>
+                        </div>
+
+                        {/* Salary */}
+                        <div className="mb-3">
+                            <label htmlFor="inputSalary" className="form-label">Salary</label>
+                            <div className="input-group w-100">
+                                <span className="input-group-text" id="inputSalary">C$</span>
+                                <input type="number" className="form-control"
+                                       placeholder="Enter an amount"
+                                       aria-label="Enter an amount"
+                                       aria-describedby="inputSalary" disabled={ !editMode } value={ employee.salary }/>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="modal-footer">
+                        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal" hidden={ !editMode }>Cancel</button>
+                        <button type="submit" className="btn btn-primary" hidden={ !editMode }>Save Changes</button>
+                        <button type="button" className="btn btn-primary" data-bs-dismiss="modal" hidden={ editMode } >Close</button>
+                    </div>
+                </form>
             </>
         );
     }
@@ -107,17 +210,17 @@ export default class EmployeeDirectory extends React.Component {
         } else {
             return (
                 <>
-                    <h1 className="pb-2 pt-4">Employee Directory</h1>
+                    <h1 className="pt-4 pb-3">Employee Directory</h1>
                     <div className="table-responsive">
-                        <table className="table table-bordered table-fit">
+                        <table className="table table-striped table-fit border">
                             <thead className="text-start">
                             <tr>
-                                <th scope="col" className="px-3">#</th>
-                                <th scope="col" className="px-3">Full Name</th>
-                                <th scope="col" className="px-3">Email</th>
-                                <th scope="col" className="px-3">Gender</th>
-                                <th scope="col" className="px-3">Salary</th>
-                                <th scope="col" className="px-3">Actions</th>
+                                <th scope="col" className="px-4 py-2">#</th>
+                                <th scope="col" className="px-4 py-2">Full Name</th>
+                                <th scope="col" className="px-4 py-2">Email</th>
+                                <th scope="col" className="px-4 py-2">Gender</th>
+                                <th scope="col" className="px-4 py-2">Salary</th>
+                                <th scope="col" className="px-4 py-2">Actions</th>
                             </tr>
                             </thead>
                             <tbody className="text-start">

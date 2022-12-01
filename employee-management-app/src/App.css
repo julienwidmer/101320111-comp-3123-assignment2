@@ -62,5 +62,5 @@ table.table-fit tbody td, table.table-fit tfoot td {
 
 /* Fix Table Action Buttons on Medium Screens */
 @media only screen and (max-width: 992px) {
-  table .btn {width: 70px}
+  table .btn:not(.modal .btn) {width: 70px}
 }
