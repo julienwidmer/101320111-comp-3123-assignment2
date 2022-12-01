@@ -1,6 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 import Navbar from "./Navbar";
+import EmployeeDirectory from "./EmployeeDirectory";
 
 function App() {
   return (
@@ -14,7 +15,7 @@ function App() {
         {/* Page Content */}
         <div className="container-fluid">
             <div className="container py-3 text-start">
-                <h1>Hello World</h1>
+                <EmployeeDirectory/>
             </div>
         </div>
     </div>
