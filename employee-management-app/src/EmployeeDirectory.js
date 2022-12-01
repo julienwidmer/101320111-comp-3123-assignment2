@@ -30,17 +30,19 @@ export default class EmployeeDirectory extends React.Component {
         employee.first_name = employee.first_name ? employee.first_name : "Unknown";
         employee.last_name = employee.last_name ? employee.last_name : "Unknown";
         employee.email = employee.email ? employee.email : "Unknown";
+        employee.gender = employee.gender ? employee.gender : "Unknown";
         employee.salary = employee.salary ? employee.salary : 0;
 
         return (
             <>
                 <tr className="align-middle" key={rowIndex}>
-                    <th scope="row">{rowIndex + 1}</th>
-                    <td>{employee.first_name} {employee.last_name}</td>
-                    <td>{employee.email}</td>
-                    <td>{employee.salary}</td>
-                    <td>
-                        <div className="">
+                    <th scope="row" className="px-3">{rowIndex + 1}</th>
+                    <td className="px-3 text-nowrap">{employee.first_name} {employee.last_name}</td>
+                    <td className="px-3">{employee.email}</td>
+                    <td className="px-3">{employee.gender}</td>
+                    <td className="px-3">{employee.salary}</td>
+                    <td className="px-3">
+                        <div className="text-nowrap">
                             {/* --- CRUD - READ --- */}
                             {/* CRUD - READ - Button trigger modal */}
                             <a href="#" className="btn btn-primary m-1">
@@ -99,7 +101,7 @@ export default class EmployeeDirectory extends React.Component {
             return (
                 <>
                     <h1 className="pb-2 pt-4">Employee Directory</h1>
-                    <p className="text-muted">There are no employees stored in the the Employee Directory.</p>
+                    <p className="text-muted p-3">There are no employees stored in the the Employee Directory.</p>
                 </>
             )
         } else {
@@ -108,23 +110,24 @@ export default class EmployeeDirectory extends React.Component {
                     <h1 className="pb-2 pt-4">Employee Directory</h1>
                     <div className="table-responsive">
                         <table className="table table-bordered table-fit">
-                            <thead>
+                            <thead className="text-start">
                             <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Full Name</th>
-                                <th scope="col">Email</th>
-                                <th scope="col">Salary</th>
-                                <th scope="col">Actions</th>
+                                <th scope="col" className="px-3">#</th>
+                                <th scope="col" className="px-3">Full Name</th>
+                                <th scope="col" className="px-3">Email</th>
+                                <th scope="col" className="px-3">Gender</th>
+                                <th scope="col" className="px-3">Salary</th>
+                                <th scope="col" className="px-3">Actions</th>
                             </tr>
                             </thead>
-                            <tbody>
+                            <tbody className="text-start">
                             {this.state.employees.map((employee, index) => {
                                 return this.getEmployeeRow(employee, index)
                             })}
                             </tbody>
                         </table>
                     </div>
-                    <p className="text-muted">There {this.state.employees.length > 1 ? "are " + this.state.employees.length + "employees" : "is 1 employee"} stored
+                    <p className="text-muted p-3">There {this.state.employees.length > 1 ? "are " + this.state.employees.length + " employees" : "is 1 employee"} stored
                         in the the Employee Directory.</p>
                 </>
             )
