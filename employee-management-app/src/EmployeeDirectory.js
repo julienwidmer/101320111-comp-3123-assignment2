@@ -40,7 +40,7 @@ export default class EmployeeDirectory extends React.Component {
                     <td className="px-4 py-3 text-nowrap">{employee.first_name} {employee.last_name}</td>
                     <td className="px-4 py-3">{employee.email}</td>
                     <td className="px-4 py-3">{employee.gender}</td>
-                    <td className="px-4 py-3">{employee.salary}</td>
+                    <td className="px-4 py-3">C$ {employee.salary.toLocaleString('en-CA')}</td>
                     <td className="px-4 py-3">
                         {/* --- CRUD - Buttons --- */}
                         <div className="text-nowrap">
