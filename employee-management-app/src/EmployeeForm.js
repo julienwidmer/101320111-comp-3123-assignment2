@@ -20,6 +20,8 @@ export default class EmployeeForm extends React.Component {
             salary: event.target.elements.salary.value
         }
 
+        // TODO: On cancel button reset props? from state? YESY???
+        //TODO: Display validation error message
         // Update Employee
         axios.put("https://101320111-comp-3123-assignment1-kywgwqq8m-julienwidmer.vercel.app/api/emp/employees/" + this.props.employee._id, newEmployeeInfo)
             .then(res => {
@@ -77,7 +79,7 @@ export default class EmployeeForm extends React.Component {
                             <label htmlFor="inputSalary" className="form-label">Salary</label>
                             <div className="input-group w-100">
                                 <span className="input-group-text" id="inputSalary">C$</span>
-                                <input type="number" className="form-control" name="salary"
+                                <input type="number" step=".01" className="form-control" name="salary"
                                        placeholder="Enter an amount"
                                        aria-label="Enter an amount"
                                        aria-describedby="inputSalary" disabled={ !this.props.editMode }
