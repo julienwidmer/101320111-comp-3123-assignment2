@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import EmployeeForm from "./EmployeeForm";
 
 export default class EmployeeDirectory extends React.Component {
     state = {
@@ -77,7 +78,7 @@ export default class EmployeeDirectory extends React.Component {
                                         <button type="button" className="btn-close" data-bs-dismiss="modal"
                                                 aria-label="Close"/>
                                     </div>
-                                    { this.getEmployeeForm(employee, false) }
+                                    { <EmployeeForm employee={employee} editMode={false}/> }
                                 </div>
                             </div>
                         </div>
@@ -95,7 +96,7 @@ export default class EmployeeDirectory extends React.Component {
                                         <button type="button" className="btn-close" data-bs-dismiss="modal"
                                                 aria-label="Close"/>
                                     </div>
-                                    { this.getEmployeeForm(employee, true) }
+                                    { <EmployeeForm employee={employee} editMode={true}/> }
                                 </div>
                             </div>
                         </div>
@@ -147,7 +148,7 @@ export default class EmployeeDirectory extends React.Component {
                             <label htmlFor="inputFirstName" className="form-label">First Name</label>
                             <input type="text" className="form-control"
                                    placeholder="First Name" id="inputFirstName" disabled={ !editMode }
-                                   value={ employee.first_name }/>
+                                   defaultValue={ employee.first_name }/>
                         </div>
 
                         {/* Last Name */}
@@ -155,14 +156,14 @@ export default class EmployeeDirectory extends React.Component {
                             <label htmlFor="inputLastName" className="form-label">Last Name</label>
                             <input type="text" className="form-control"
                                    placeholder="Last Name" id="inputLastName" disabled={ !editMode }
-                                   value={ employee.last_name }/>
+                                   defaultValue={ employee.last_name }/>
                         </div>
 
                         {/* Email */}
                         <div className="mb-3">
                             <label htmlFor="inputEmail" className="form-label">Email</label>
                             <input type="email" className="form-control"
-                                   placeholder="Email" id="inputEmail" disabled={ !editMode } value={ employee.email }/>
+                                   placeholder="Email" id="inputEmail" disabled={ !editMode } defaultValue={ employee.email }/>
                         </div>
 
                         {/* Gender */}
@@ -171,9 +172,9 @@ export default class EmployeeDirectory extends React.Component {
                             <select className="form-select" aria-label="Gender"
                                     id="inputGender" disabled={ !editMode }>
                                 <option>- Select an option -</option>
-                                <option value="1" selected={ employee.gender === "Male" }>Male</option>
-                                <option value="2" selected={ employee.gender === "Female" }>Female</option>
-                                <option value="3" selected={ employee.gender === "Other" }>Other</option>
+                                <option value="Male" selected={ employee.gender === "Male" }>Male</option>
+                                <option value="Female" selected={ employee.gender === "Female" }>Female</option>
+                                <option value="Other" selected={ employee.gender === "Other" }>Other</option>
                             </select>
                         </div>
 
@@ -185,7 +186,7 @@ export default class EmployeeDirectory extends React.Component {
                                 <input type="number" className="form-control"
                                        placeholder="Enter an amount"
                                        aria-label="Enter an amount"
-                                       aria-describedby="inputSalary" disabled={ !editMode } value={ employee.salary }/>
+                                       aria-describedby="inputSalary" disabled={ !editMode } defaultValue={ employee.salary }/>
                             </div>
                         </div>
                     </div>
