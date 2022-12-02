@@ -1,4 +1,5 @@
 import React from "react";
+import EmployeeForm from "./EmployeeForm";
 
 function Navbar(props) {
     return (
@@ -26,9 +27,27 @@ function Navbar(props) {
                         <a className="nav-link" href="#">Employee Directory</a>
                     </li>
                 </ul>
-                <a href="#" className="btn btn-primary ms-auto">
+                {/* CRUD - CREATE - Button trigger modal */}
+                <button data-bs-toggle="modal" data-bs-target="#createEmployeeModal" className="btn btn-primary ms-auto">
                     New Employee
-                </a>
+                </button>
+                {/* CRUD - CREATE - Modal */}
+                <div className="modal fade text-start" id="createEmployeeModal" tabIndex="-1"
+                     aria-labelledby="createEmployeeModalLabel" aria-hidden="true">
+                    <div className="modal-dialog modal-dialog-centered">
+                        <div className="modal-content">
+                            <div className="modal-header">
+                                <h1 className="modal-title fs-5"
+                                    id="createEmployeeModalLabel">
+                                    Create Employee
+                                </h1>
+                                <button type="button" className="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"/>
+                            </div>
+                            { <EmployeeForm employee={{}} editMode={true}/> }
+                        </div>
+                    </div>
+                </div>
             </div>
         </nav>
     );

@@ -8,10 +8,10 @@ export default class EmployeeRow extends React.Component {
         this.state = {
             employee: {
                 _id: props.employee._id ? props.employee._id : undefined,
-                first_name: props.employee.first_name ? props.employee.first_name : "",
-                last_name: props.employee.last_name ? props.employee.last_name : "",
-                email: props.employee.email ? props.employee.email : "",
-                gender: props.employee.gender ? props.employee.gender : "",
+                first_name: props.employee.first_name ? props.employee.first_name : "Unknown",
+                last_name: props.employee.last_name ? props.employee.last_name : "Unknown",
+                email: props.employee.email ? props.employee.email : "Unknown",
+                gender: props.employee.gender ? props.employee.gender : "Unknown",
                 salary: props.employee.salary ? props.employee.salary : 0
             },
             rowIndex: props.rowIndex + 1
@@ -68,7 +68,7 @@ export default class EmployeeRow extends React.Component {
                             </div>
                         </div>
 
-                        {/* CRUD - Edit - Modal */}
+                        {/* CRUD - UPDATE - Modal */}
                         <div className="modal fade" id={"editEmployeeModal" + (this.state.rowIndex)} tabIndex="-1"
                              aria-labelledby={"editEmployeeModalLabel" + (this.state.rowIndex)} aria-hidden="true">
                             <div className="modal-dialog modal-dialog-centered">
@@ -86,7 +86,7 @@ export default class EmployeeRow extends React.Component {
                             </div>
                         </div>
 
-                        {/* CRUD - REMOVE - Modal */}
+                        {/* CRUD - DELETE - Modal */}
                         <div className="modal fade" id={"deleteEmployeeModal" + (this.state.rowIndex)} tabIndex="-1"
                              aria-labelledby={"deleteEmployeeModalLabel" + (this.state.rowIndex)} aria-hidden="true">
                             <div className="modal-dialog modal-dialog-centered">

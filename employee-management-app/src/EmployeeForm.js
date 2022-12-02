@@ -25,12 +25,13 @@ export default class EmployeeForm extends React.Component {
             salary: event.target.elements.salary.value
         }
 
-        // PUT Request
-        axios.put("https://101320111-comp-3123-assignment1-kywgwqq8m-julienwidmer.vercel.app/api/emp/employees/" + this.state.employee._id, newEmployeeInfo)
-            .then(() => {
-                // Success -> Reload page to display updated rows
-                window.location.reload();
-            }).catch(error => {
+        if (JSON.stringify(this.state.employee).length === 2) {
+            // Create Employee
+            axios.post("https://101320111-comp-3123-assignment1-kywgwqq8m-julienwidmer.vercel.app/api/emp/employees", newEmployeeInfo)
+                .then(() => {
+                    // Success -> Reload page to display updated rows
+                    window.location.reload();
+                }).catch(error => {
                 // Error -> Display error message
                 this.setState({
                     employee: this.props.employee,
@@ -42,7 +43,27 @@ export default class EmployeeForm extends React.Component {
                 this.forceUpdate();
 
                 console.log(this.state);
-        });
+            });
+        } else {
+            // Update Employee
+            axios.put("https://101320111-comp-3123-assignment1-kywgwqq8m-julienwidmer.vercel.app/api/emp/employees/" + this.state.employee._id, newEmployeeInfo)
+                .then(() => {
+                    // Success -> Reload page to display updated rows
+                    window.location.reload();
+                }).catch(error => {
+                // Error -> Display error message
+                this.setState({
+                    employee: this.props.employee,
+                    editMode: this.props.editMode,
+                    error: true
+                });
+
+                console.log("Error: " + JSON.stringify(error.response.data));
+                this.forceUpdate();
+
+                console.log(this.state);
+            });
+        }
     }
 
     render() {
@@ -55,7 +76,7 @@ export default class EmployeeForm extends React.Component {
                             <label htmlFor="inputFirstName" className="form-label">First Name</label>
                             <input type="text" className="form-control"
                                    placeholder="First Name" id="inputFirstName" disabled={ !this.state.editMode }
-                                   name="firstName"
+                                   name="firstName" required={true}
                                    defaultValue={ this.state.employee.first_name }/>
                         </div>
 
@@ -64,7 +85,7 @@ export default class EmployeeForm extends React.Component {
                             <label htmlFor="inputLastName" className="form-label">Last Name</label>
                             <input type="text" className="form-control"
                                    placeholder="Last Name" id="inputLastName" disabled={ !this.state.editMode }
-                                   name="lastName"
+                                   name="lastName" required={true}
                                    defaultValue={ this.state.employee.last_name }/>
                         </div>
 
@@ -82,7 +103,7 @@ export default class EmployeeForm extends React.Component {
                             <label htmlFor="inputGender" className="form-label">Gender</label>
                             <select className="form-select"
                                     aria-label="Gender" id="inputGender" disabled={ !this.state.editMode } name="gender"
-                                    defaultValue={ this.state.employee.gender }>
+                                    defaultValue={ this.state.employee.gender } required={true}>
                                 <option disabled>- Select an option -</option>
                                 <option value="Male">Male</option>
                                 <option value="Female">Female</option>
@@ -99,19 +120,21 @@ export default class EmployeeForm extends React.Component {
                                        placeholder="Enter an amount"
                                        aria-label="Enter an amount"
                                        aria-describedby="inputSalary" disabled={ !this.state.editMode }
-                                       defaultValue={ this.state.employee.salary } />
+                                       defaultValue={ this.state.employee.salary }  required={true}/>
                             </div>
                         </div>
 
                         <div className="mb-3 alert alert-danger" role="alert" hidden={!this.state.error}>
-                            <span className="fw-bold">Error:</span> Changes could not be saved. Please verify that the email address is not assigned to another employee or try again later.
+                            <span className="fw-bold">Error:</span> Please verify that the email address is not assigned to another employee or try again later.
                         </div>
                     </div>
                     <div className="modal-footer">
                         <button type="button" className="btn btn-secondary" data-bs-dismiss="modal"
                                 hidden={ !this.state.editMode } onClick={this.closeModal}>Cancel</button>
                         <button type="submit" className="btn btn-primary"
-                                hidden={ !this.state.editMode }>Save Changes</button>
+                                hidden={ !this.state.editMode || (JSON.stringify(this.state.employee).length === 2) }>Save Changes</button>
+                        <button type="submit" className="btn btn-primary"
+                                hidden={ !(JSON.stringify(this.state.employee).length === 2) }>Create Employee</button>
                         <button type="button" className="btn btn-primary" data-bs-dismiss="modal"
                                 hidden={ this.state.editMode }>Close</button>
                     </div>
