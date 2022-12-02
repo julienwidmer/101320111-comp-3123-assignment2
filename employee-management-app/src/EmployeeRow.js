@@ -1,5 +1,6 @@
 import React from "react";
 import EmployeeForm from "./EmployeeForm";
+import axios from "axios";
 
 export default class EmployeeRow extends React.Component {
     constructor(props){
@@ -16,6 +17,15 @@ export default class EmployeeRow extends React.Component {
             },
             rowIndex: props.rowIndex + 1
         };
+    }
+
+    deleteEmployee(id) {
+        axios.delete("https://101320111-comp-3123-assignment1-kywgwqq8m-julienwidmer.vercel.app/api/emp/employees?eid=" + id)
+            .then(res => {
+                console.log("Delete Employee: " + res.data);
+                // Reload page
+                window.location.reload();
+            });
     }
 
     render() {

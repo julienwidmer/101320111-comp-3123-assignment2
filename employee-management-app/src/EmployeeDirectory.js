@@ -17,15 +17,6 @@ export default class EmployeeDirectory extends React.Component {
             });
     }
 
-    deleteEmployee(id) {
-        axios.delete("https://101320111-comp-3123-assignment1-kywgwqq8m-julienwidmer.vercel.app/api/emp/employees?eid=" + id)
-            .then(res => {
-                console.log("Delete Employee: " + res.data);
-                // Reload page
-                window.location.reload();
-            });
-    }
-
     render() {
         if (this.state.employees.length === 0) {
             return (
