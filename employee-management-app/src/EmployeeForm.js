@@ -130,7 +130,7 @@ export default class EmployeeForm extends React.Component {
                     </div>
                     <div className="modal-footer">
                         <button type="button" className="btn btn-secondary" data-bs-dismiss="modal"
-                                hidden={ !this.state.editMode } onClick={this.closeModal}>Cancel</button>
+                                hidden={ !this.state.editMode }>Cancel</button>
                         <button type="submit" className="btn btn-primary"
                                 hidden={ !this.state.editMode || (JSON.stringify(this.state.employee).length === 2) }>Save Changes</button>
                         <button type="submit" className="btn btn-primary"
