@@ -7,8 +7,8 @@ export default class EmployeeDirectory extends React.Component {
         employees: []
     }
 
-    componentDidMount() {
-        axios.get("https://101320111-comp-3123-assignment1-kywgwqq8m-julienwidmer.vercel.app/api/emp/employees")
+    async componentDidMount() {
+        axios.get("https://101320111-comp-3123-assignment1.vercel.app/api/emp/employees")
             .then(res => {
                 const employees = res.data;
                 this.setState({employees});
