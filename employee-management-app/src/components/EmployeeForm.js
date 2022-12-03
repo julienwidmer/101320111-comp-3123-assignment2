@@ -8,7 +8,7 @@ export default class EmployeeForm extends React.Component {
         this.state = {
             employee: props.employee,
             editMode: props.editMode,
-            error: false
+            error: null
         };
     }
 
@@ -22,12 +22,12 @@ export default class EmployeeForm extends React.Component {
             last_name: event.target.elements.lastName.value,
             email: event.target.elements.email.value,
             gender: event.target.elements.gender.value,
-            salary: event.target.elements.salary.value
+            salary: parseFloat(event.target.elements.salary.value)
         }
 
         if (JSON.stringify(this.state.employee).length === 2) {
             // Create Employee
-            axios.post("https://101320111-comp-3123-assignment1-kywgwqq8m-julienwidmer.vercel.app/api/emp/employees", newEmployeeInfo)
+            axios.post("https://101320111-comp-3123-assignment1.vercel.app/api/emp/employees", newEmployeeInfo)
                 .then(() => {
                     // Success -> Reload page to display updated rows
                     window.location.reload();
@@ -36,9 +36,10 @@ export default class EmployeeForm extends React.Component {
                 this.setState({
                     employee: this.props.employee,
                     editMode: this.props.editMode,
-                    error: true
+                    error: error.response.data.message
                 });
 
+                //Please fill out all the fields and verify that the email address is not assigned to another employee.
                 console.log("Error: " + JSON.stringify(error.response.data));
                 this.forceUpdate();
 
@@ -46,7 +47,7 @@ export default class EmployeeForm extends React.Component {
             });
         } else {
             // Update Employee
-            axios.put("https://101320111-comp-3123-assignment1-kywgwqq8m-julienwidmer.vercel.app/api/emp/employees/" + this.state.employee._id, newEmployeeInfo)
+            axios.put("https://101320111-comp-3123-assignment1.vercel.app/api/emp/employees/" + this.state.employee._id, newEmployeeInfo)
                 .then(() => {
                     // Success -> Reload page to display updated rows
                     window.location.reload();
@@ -55,7 +56,7 @@ export default class EmployeeForm extends React.Component {
                 this.setState({
                     employee: this.props.employee,
                     editMode: this.props.editMode,
-                    error: true
+                    error: error.response.data.message
                 });
 
                 console.log("Error: " + JSON.stringify(error.response.data));
@@ -104,7 +105,7 @@ export default class EmployeeForm extends React.Component {
                             <select className="form-select"
                                     aria-label="Gender" id="inputGender" disabled={ !this.state.editMode } name="gender"
                                     defaultValue={ this.state.employee.gender } required={true}>
-                                <option disabled>- Select an option -</option>
+                                <option>- Select an option -</option>
                                 <option value="Male">Male</option>
                                 <option value="Female">Female</option>
                                 <option value="Other">Other</option>
@@ -125,7 +126,7 @@ export default class EmployeeForm extends React.Component {
                         </div>
 
                         <div className="mb-3 alert alert-danger" role="alert" hidden={!this.state.error}>
-                            <span className="fw-bold">Error:</span> Please verify that the email address is not assigned to another employee or try again later.
+                            <span className="fw-bold">Error:</span> { this.state.error }
                         </div>
                     </div>
                     <div className="modal-footer">
