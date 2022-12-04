@@ -1,9 +1,9 @@
-import React from "react";
+import React, {useState} from "react";
 import axios from "axios";
 
 function EmployeeForm(props) {
-    const [error, setError] = React.useState(null);
-    const [success, setSuccess] = React.useState(null);
+    const [error, setError] = useState(null);
+    const [success, setSuccess] = useState(null);
 
     function handleSubmit(event) {
         // Prevent page refresh
@@ -26,7 +26,8 @@ function EmployeeForm(props) {
                     setSuccess("Employee created with success!");
                     setError(null);
 
-                    //TODO: Implement React Hook to update Employee List
+                    // Update list of employees from parent component
+                    props.addNewEmployee(res.data);
                 }).catch(error => {
                 // Error -> Display error message
                 setSuccess(null);

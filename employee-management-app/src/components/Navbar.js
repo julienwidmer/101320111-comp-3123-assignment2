@@ -44,7 +44,7 @@ function Navbar(props) {
                                 <button type="button" className="btn-close" data-bs-dismiss="modal"
                                         aria-label="Close"/>
                             </div>
-                            { <EmployeeForm employee={{}} editMode={true}/> }
+                            { <EmployeeForm employee={{}} editMode={true} addNewEmployee={props.addNewEmployee}/> }
                         </div>
                     </div>
                 </div>
