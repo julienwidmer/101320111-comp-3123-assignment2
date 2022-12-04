@@ -6,6 +6,7 @@ import axios from "axios";
 import {BrowserRouter as Router, Routes, Route, Link, Navigate} from "react-router-dom";
 import EmployeeForm from "./components/EmployeeForm";
 import SignUp from "./components/SignUp";
+import PageNotFound from "./components/PageNotFound";
 
 function App() {
     const [employees, setEmployees] = useState([]);
@@ -111,6 +112,7 @@ function App() {
                         <Route path="/" element={<EmployeeDirectory employees={employees}/>}/>
                         <Route path="/login" element={<Login/>}/>
                         <Route path="/signup" element={<SignUp/>}/>
+                        <Route path="*" element={ <PageNotFound/> } />
                     </Routes>
                 </div>
             </div>
