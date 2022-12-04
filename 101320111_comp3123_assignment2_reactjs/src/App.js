@@ -1,7 +1,7 @@
 import './App.css';
 import EmployeeDirectory from "./components/EmployeeDirectory";
 import Login from "./components/Login";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import axios from "axios";
 import {BrowserRouter as Router, Routes, Route, Link, Navigate} from "react-router-dom";
 import EmployeeForm from "./components/EmployeeForm";
@@ -14,8 +14,9 @@ function App() {
         (localStorage.getItem("userIsLogged") === "true"));
 
     function addNewEmployee(newValue) {
-        employees.push(newValue);
-        setEmployees(employees);
+        //employees.push(newValue);
+        //setEmployees(employees);
+        fetchData();
     }
 
     function loginUser() {
