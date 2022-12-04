@@ -23,6 +23,7 @@ function Login(props) {
                 // Success -> Redirect to homepage
                 props.loginUser();
                 setSuccess("You have been successfully authenticated!");
+                setError(null);
             }).catch(error => {
                 // Error -> Display error message
                 setError(error.response.data.message);
