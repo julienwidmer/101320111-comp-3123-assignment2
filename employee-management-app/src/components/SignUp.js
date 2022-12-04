@@ -3,7 +3,7 @@ import {Link} from "react-router-dom";
 
 function SignUp() {
     return (
-        <div style={{"max-width": "600px"}} className="ms-auto me-auto">
+        <div style={{"maxWidth": "600px"}} className="ms-auto me-auto">
             <h1 className="pt-4 pb-1">Sign Up</h1>
             <p>Create an account to access the employee directory.</p>
             <form className="text-start mt-3">

@@ -9,30 +9,37 @@ import SignUp from "./components/SignUp";
 import PageNotFound from "./components/PageNotFound";
 
 function App() {
-    const [employees, setEmployees] = useState([]);
-    const [user, setUser] = useState([]);
+    const [employees, setEmployees] = useState(() => fetchData());
+    const [userIsLogged, setUserIsLogged] = useState(false);
 
     function addNewEmployee(newValue) {
         employees.push(newValue);
         setEmployees(employees);
     }
 
+    function loginUser() {
+        // Login
+        setUserIsLogged(true);
+    }
+
     function signOut() {
         // Logout
-        setUser([]);
+        setUserIsLogged(false);
 
         // Redirect guest to login page
         return <Navigate to="/login"/>
     }
 
-    // Fetch data
-    axios.get("https://101320111-comp-3123-assignment1.vercel.app/api/emp/employees")
-        .then(res => {
-            const employees = res.data;
-            setEmployees(employees);
-        }, (error) => {
-            console.log("Error: " + error);
-        });
+    function fetchData() {
+        // Fetch data
+        axios.get("https://101320111-comp-3123-assignment1.vercel.app/api/emp/employees")
+            .then(res => {
+                const employees = res.data;
+                setEmployees(employees);
+            }, (error) => {
+                console.log("Error: " + error);
+            });
+    }
 
     return (
         <Router>
@@ -65,24 +72,19 @@ function App() {
                                     <Link className="nav-link" to="/">Employee Directory</Link>
                                 </li>
                             </ul>
-                            {() => {
-                                /* CRUD - CREATE - Button trigger modal */
-                                // TODO: Implement login
-                                const userIsLogged = false;
-
-                                if (userIsLogged) {
-                                    <>
-                                        <button data-bs-toggle="modal" onClick={() => signOut()}
-                                                className="btn btn-secondary me-3">
-                                            Logout
-                                        </button>
-                                        <button data-bs-toggle="modal" data-bs-target="#createEmployeeModal"
-                                                className="btn btn-primary ms-auto">
-                                            New Employee
-                                        </button>
-                                    </>
-                                }
-                            }}
+                            {/* CRUD - CREATE - Button trigger modal */}
+                            {userIsLogged &&
+                                <div>
+                                    <button data-bs-toggle="modal" onClick={() => signOut()}
+                                    className="btn btn-secondary me-3">
+                                        Logout
+                                    </button>
+                                    <button data-bs-toggle="modal" data-bs-target="#createEmployeeModal"
+                                    className="btn btn-primary ms-auto">
+                                    New Employee
+                                    </button>
+                                </div>
+                            }
                             {/* CRUD - CREATE - Modal */}
                             <div className="modal fade text-start" id="createEmployeeModal" tabIndex="-1"
                                  aria-labelledby="createEmployeeModalLabel" aria-hidden="true">
@@ -109,10 +111,10 @@ function App() {
                 <div className="container py-3 text-center">
                     {/* Switch */}
                     <Routes>
-                        <Route path="/" element={<EmployeeDirectory employees={employees}/>}/>
-                        <Route path="/login" element={<Login/>}/>
-                        <Route path="/signup" element={<SignUp/>}/>
-                        <Route path="*" element={ <PageNotFound/> } />
+                        <Route path="/" element={ <EmployeeDirectory employees={employees} userIsLogged={userIsLogged}/> }/>
+                        <Route path="/login" element={ <Login loginUser={loginUser}/> }/>
+                        <Route path="/signup" element={ <SignUp/> }/>
+                        <Route path="*" element={ <PageNotFound/> }/>
                     </Routes>
                 </div>
             </div>

@@ -3,15 +3,12 @@ import EmployeeRow from "./EmployeeRow";
 import { Navigate } from 'react-router-dom';
 
 function EmployeeDirectory(props) {
-    // TODO: Implement login
-    const userIsLogged = false;
-
-    if (!userIsLogged) {
+    if (!props.userIsLogged) {
         // Redirect guest to login page
         return <Navigate to="/login" />
     }
 
-    if (props.employees.length === 0) {
+    if (props.employees === undefined || props.employees.length === 0) {
         return (
             <>
                 <h1 className="pb-2 pt-4">Employee Directory</h1>
