@@ -113,7 +113,7 @@ function App() {
                     <Routes>
                         <Route path="/" element={ <EmployeeDirectory employees={employees} userIsLogged={userIsLogged}/> }/>
                         <Route path="/login" element={ <Login loginUser={loginUser}/> }/>
-                        <Route path="/signup" element={ <SignUp/> }/>
+                        <Route path="/signup" element={ <SignUp loginUser={loginUser}/> }/>
                         <Route path="*" element={ <PageNotFound/> }/>
                     </Routes>
                 </div>

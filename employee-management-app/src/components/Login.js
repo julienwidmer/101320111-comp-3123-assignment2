@@ -22,7 +22,7 @@ function Login(props) {
             .then(res => {
                 // Success -> Redirect to homepage
                 props.loginUser();
-                setSuccess("You have been successfully logged in!");
+                setSuccess("You have been successfully authenticated!");
             }).catch(error => {
                 // Error -> Display error message
                 setError(error.response.data.message);
@@ -48,9 +48,16 @@ function Login(props) {
                 <div className="mb-3 alert alert-danger" role="alert" hidden={!error}>
                     <span className="fw-bold">Error:</span> {error}
                 </div>
-                <div className="mb-3 alert alert-success" role="alert" hidden={!success}>
+                <div className="mb-3 alert alert-success text-center" role="alert" hidden={!success}>
                     {success}<br/>
-                    <Link className="alert-link mt-2" to={"/"}>Browse the Employee Directory</Link>
+                    <Link className="btn btn-success mt-2 btn-lg" to={"/"}>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                             className="bi bi-search me-2 mb-1" viewBox="0 0 16 16">
+                            <path
+                                d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                        </svg>
+                        Browse Employee Directory
+                    </Link>
                 </div>
                 <div className="text-end">
                     <Link className="btn btn-outline-primary mt-2 me-2" to={"/signup"}>Create an account?</Link>
