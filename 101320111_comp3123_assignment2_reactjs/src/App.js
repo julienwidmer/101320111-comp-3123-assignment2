@@ -10,7 +10,8 @@ import PageNotFound from "./components/PageNotFound";
 
 function App() {
     const [employees, setEmployees] = useState(() => fetchData());
-    const [userIsLogged, setUserIsLogged] = useState(false);
+    const [userIsLogged, setUserIsLogged] = useState(
+        (localStorage.getItem("userIsLogged") === "true"));
 
     function addNewEmployee(newValue) {
         employees.push(newValue);
@@ -20,11 +21,13 @@ function App() {
     function loginUser() {
         // Login
         setUserIsLogged(true);
+        localStorage.setItem("userIsLogged", "true");
     }
 
     function signOut() {
         // Logout
         setUserIsLogged(false);
+        localStorage.setItem("userIsLogged", "false");
 
         // Redirect guest to login page
         return <Navigate to="/login"/>
