@@ -1,0 +1,9 @@
+GITHUB - BACKEND
+https://github.com/julienwidmer/101320111-comp-3123-assignment1
+VERCEL - FRONTEND
+https://101320111-comp-3123-assignment2.vercel.app
+
+GITHUB - FRONTEND
+https://github.com/julienwidmer/101320111-comp-3123-assignment2
+VERCEL - FRONTEND
+https://101320111-comp-3123-assignment2.vercel.app
