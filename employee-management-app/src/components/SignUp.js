@@ -43,9 +43,7 @@ function SignUp(props) {
             setError("Passwords are not matching.");
         } else if (confirmPassword.match(passwordPattern) && confirmPassword.length >= 12) {
             // Username contains a value and passwords are matching -> create user
-            //Todo: check for email duplicate error
-            //s://101320111-comp-3123-assignment1.vercel.app
-            axios.post("http://localhost:8081/api/user/signup", newUserInfo)
+            axios.post("https://101320111-comp-3123-assignment1.vercel.app/api/user/signup", newUserInfo)
                 .then(res => {
                     // Success -> Redirect to homepage
                     props.loginUser();
