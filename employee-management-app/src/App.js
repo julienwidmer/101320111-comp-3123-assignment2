@@ -3,15 +3,25 @@ import EmployeeDirectory from "./components/EmployeeDirectory";
 import Login from "./components/Login";
 import React, {useState} from "react";
 import axios from "axios";
-import {BrowserRouter as Router, Routes, Route, Link} from "react-router-dom";
+import {BrowserRouter as Router, Routes, Route, Link, Navigate} from "react-router-dom";
 import EmployeeForm from "./components/EmployeeForm";
+import SignUp from "./components/SignUp";
 
 function App() {
     const [employees, setEmployees] = useState([]);
+    const [user, setUser] = useState([]);
 
     function addNewEmployee(newValue) {
         employees.push(newValue);
         setEmployees(employees);
+    }
+
+    function signOut() {
+        // Logout
+        setUser([]);
+
+        // Redirect guest to login page
+        return <Navigate to="/login"/>
     }
 
     // Fetch data
@@ -40,8 +50,10 @@ function App() {
                                 </svg>
                                 Employee Manager Ltd.
                             </Link>
-                            <button type="button" className="navbar-toggler collapsed ms-auto me-0" data-bs-toggle="collapse"
-                                    data-bs-target="#navbarAdvanced" aria-controls="navbarAdvanced" aria-expanded="false"
+                            <button type="button" className="navbar-toggler collapsed ms-auto me-0"
+                                    data-bs-toggle="collapse"
+                                    data-bs-target="#navbarAdvanced" aria-controls="navbarAdvanced"
+                                    aria-expanded="false"
                                     aria-label="Toggle navigation">
                                 <span className="navbar-toggler-icon"></span>
                             </button>
@@ -52,10 +64,24 @@ function App() {
                                     <Link className="nav-link" to="/">Employee Directory</Link>
                                 </li>
                             </ul>
-                            {/* CRUD - CREATE - Button trigger modal */}
-                            <button data-bs-toggle="modal" data-bs-target="#createEmployeeModal" className="btn btn-primary ms-auto">
-                                New Employee
-                            </button>
+                            {() => {
+                                /* CRUD - CREATE - Button trigger modal */
+                                // TODO: Implement login
+                                const userIsLogged = false;
+
+                                if (userIsLogged) {
+                                    <>
+                                        <button data-bs-toggle="modal" onClick={() => signOut()}
+                                                className="btn btn-secondary me-3">
+                                            Logout
+                                        </button>
+                                        <button data-bs-toggle="modal" data-bs-target="#createEmployeeModal"
+                                                className="btn btn-primary ms-auto">
+                                            New Employee
+                                        </button>
+                                    </>
+                                }
+                            }}
                             {/* CRUD - CREATE - Modal */}
                             <div className="modal fade text-start" id="createEmployeeModal" tabIndex="-1"
                                  aria-labelledby="createEmployeeModalLabel" aria-hidden="true">
@@ -69,7 +95,7 @@ function App() {
                                             <button type="button" className="btn-close" data-bs-dismiss="modal"
                                                     aria-label="Close"/>
                                         </div>
-                                        { <EmployeeForm employee={{}} editMode={true} addNewEmployee={addNewEmployee}/> }
+                                        {<EmployeeForm employee={{}} editMode={true} addNewEmployee={addNewEmployee}/>}
                                     </div>
                                 </div>
                             </div>
@@ -82,8 +108,9 @@ function App() {
                 <div className="container py-3 text-center">
                     {/* Switch */}
                     <Routes>
-                        <Route path="/" element={ <EmployeeDirectory employees={employees}/> }/>
-                        <Route path="/login" element={ <Login/> } />
+                        <Route path="/" element={<EmployeeDirectory employees={employees}/>}/>
+                        <Route path="/login" element={<Login/>}/>
+                        <Route path="/signup" element={<SignUp/>}/>
                     </Routes>
                 </div>
             </div>
